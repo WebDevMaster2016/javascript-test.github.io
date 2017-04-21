@@ -1,1 +1,40 @@
-Hello World
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Javascript test</title>
+
+        <link rel="stylesheet" href="css/style.css">
+
+    </head>
+    <body>
+
+        <div class="product-list"></div>
+
+        <div class="product-form product-form--find">
+            <label class="product-form__label" for="find-object">Find in products</label>
+            <input class="product-form__input-text" placeholder="Input product price" type="text" name="find-object" id="find-object">
+            <input class="product-form__button js-product-form__button--find" type="button" value="Find">
+        </div>
+
+        <div class="product-form product-form--filter">
+            <label class="product-form__label" for="filter-object">Filter products by price</label>
+            <input class="product-form__input-text" placeholder="Input product price" type="text" name="filter-object" id="filter-object">
+            <input class="product-form__button js-product-form__button--filter" type="button" value="Filter">
+        </div>
+
+        <div class="product-form product-form--sort">
+            <label class="product-form__label">Sort products by ID</label>
+            <input class="product-form__button js-product-form__button--sort" type="button" value="Sort">
+        </div>
+
+        <div class="product-form product-form--sort">
+            <label class="product-form__label" for="filter-object">Refresh card list</label>
+            <input class="product-form__button js-product-form__button--refresh" type="button" value="Refresh">
+        </div>
+
+        <script src="js/main.js"></script>
+
+    </body>
+
+</html>

@@ -1,0 +1,42 @@
+{
+  "0": {
+    "product_id": 1234,
+    "product_name": "My product name 1",
+    "shop_product_price": 1450,
+    "fabricator": {
+      "name": "no data provided",
+      "address": "no data provided",
+      "rating": "no data provided"
+    }
+  },
+  "1": {
+    "product_id": "0000",
+    "product_name": "My product name 2",
+    "shop_product_price": 1550,
+    "fabricator": {
+      "name": "no data provided",
+      "address": "no data provided",
+      "rating": "no data provided"
+    }
+  },
+  "2": {
+    "product_id": 8967,
+    "product_name": "My product name 3",
+    "shop_product_price": 1100,
+    "fabricator": {
+      "name": "LG",
+      "address": "USA",
+      "rating": 10
+    }
+  },
+  "3": {
+    "product_id": 8512,
+    "product_name": "My product name 4",
+    "shop_product_price": 900,
+    "fabricator": {
+      "name": "Philips",
+      "address": "USA",
+      "rating": 9
+    }
+  }
+}
