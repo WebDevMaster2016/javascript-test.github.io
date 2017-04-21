@@ -32,7 +32,7 @@ function fetchJSONFile(path, callback) {
             }
         }
     };
-    httpRequest.open('GET', path);
+    httpRequest.open('POST', path);
     httpRequest.send();
 }
 
@@ -77,26 +77,26 @@ var Manufacturer = function(name, address, rating) {
     this.rating = rating;
 };
 
-var objectsArray = [];
+// var objectsArray = [];
 
-var lg = new Manufacturer('LG', 'USA', 10);
-var philips = new Manufacturer('Philips', 'USA', 9);
-var myProduct = new Product(1234, "My product name 1", 1450);
-var myProduct1 = new Product(undefined, "My product name 2", 1550);
-var myProduct2 = new Product(8967, "My product name 3", 1100, lg);
-var myProduct3 = new Product(8512, "My product name 4", 900, philips);
+// var lg = new Manufacturer('LG', 'USA', 10);
+// var philips = new Manufacturer('Philips', 'USA', 9);
+// var myProduct = new Product(1234, "My product name 1", 1450);
+// var myProduct1 = new Product(undefined, "My product name 2", 1550);
+// var myProduct2 = new Product(8967, "My product name 3", 1100, lg);
+// var myProduct3 = new Product(8512, "My product name 4", 900, philips);
 
-objectsArray.push(myProduct, myProduct1, myProduct2, myProduct3);
+// objectsArray.push(myProduct, myProduct1, myProduct2, myProduct3);
 
 // console.log(objectsArray);
 
-var productsList = Object.assign({}, objectsArray);
+// var productsList = Object.assign({}, objectsArray);
 
-var productsListJSON = JSON.stringify(productsList);
+// var productsListJSON = JSON.stringify(productsList);
 
 // console.log(productsListJSON);
 
-/*Array.prototype.upDate = function() {
+Array.prototype.upDate = function() {
     return this.map(function(value) {
         var productCard = document.createElement("div");
         productCard.className = "product-card";
@@ -110,23 +110,22 @@ var productsListJSON = JSON.stringify(productsList);
         return productCard;
     });
     // return teastListNode;
-};*/
+};
+
+var objectsArray = [];
 
 
-// this requests the file and executes a callback with the parsed result once
-//   it is available
+// this requests the file and executes a callback with the parsed result once it is available
 fetchJSONFile('js/json/products.json', function(data){
-    // do something with your data
 
-    var jsonObj = JSON.parse(data);
-    console.log(jsonObj);
+    for(var i in data) {
 
-    // document.querySelector('.product-list').innerHTML += data;
-    // console.log(data);
+        objectsArray.push(data[i]);
+    }
+
+    objectsArray.upDate();
+
 });
-
-/*
-objectsArray.upDate();
 
 // find
 document.querySelector('.js-product-form__button--find').addEventListener('click', function() {
@@ -199,4 +198,4 @@ document.querySelector('.js-product-form__button--sort').addEventListener('click
 document.querySelector('.js-product-form__button--refresh').addEventListener('click', function () {
     clearArray();
     objectsArray.upDate();
-});*/
+});
