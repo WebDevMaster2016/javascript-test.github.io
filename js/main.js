@@ -22,6 +22,20 @@ function printError(selector, mess) {
     insertAfter(elem, elemToInsert);
 }
 
+function fetchJSONFile(path, callback) {
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function() {
+        if (httpRequest.readyState === 4) {
+            if (httpRequest.status === 200) {
+                var data = JSON.parse(httpRequest.responseText);
+                if (callback) callback(data);
+            }
+        }
+    };
+    httpRequest.open('GET', path);
+    httpRequest.send();
+}
+
 var Product = function(product_id, product_name, shop_product_price, fabricator) {
 
     if(!fabricator) {
@@ -74,15 +88,15 @@ var myProduct3 = new Product(8512, "My product name 4", 900, philips);
 
 objectsArray.push(myProduct, myProduct1, myProduct2, myProduct3);
 
-console.log(objectsArray);
+// console.log(objectsArray);
 
 var productsList = Object.assign({}, objectsArray);
 
 var productsListJSON = JSON.stringify(productsList);
 
-console.log(productsListJSON);
+// console.log(productsListJSON);
 
-Array.prototype.upDate = function() {
+/*Array.prototype.upDate = function() {
     return this.map(function(value) {
         var productCard = document.createElement("div");
         productCard.className = "product-card";
@@ -96,8 +110,22 @@ Array.prototype.upDate = function() {
         return productCard;
     });
     // return teastListNode;
-};
+};*/
 
+
+// this requests the file and executes a callback with the parsed result once
+//   it is available
+fetchJSONFile('js/json/products.json', function(data){
+    // do something with your data
+
+    var jsonObj = JSON.parse(data);
+    console.log(jsonObj);
+
+    // document.querySelector('.product-list').innerHTML += data;
+    // console.log(data);
+});
+
+/*
 objectsArray.upDate();
 
 // find
@@ -171,4 +199,4 @@ document.querySelector('.js-product-form__button--sort').addEventListener('click
 document.querySelector('.js-product-form__button--refresh').addEventListener('click', function () {
     clearArray();
     objectsArray.upDate();
-});
+});*/
