@@ -32,7 +32,7 @@ function fetchJSONFile(path, callback) {
             }
         }
     };
-    httpRequest.open('POST', path);
+    httpRequest.open('GET', path);
     httpRequest.send();
 }
 
