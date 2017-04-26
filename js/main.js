@@ -271,9 +271,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 modal.style.display = "block";
                 body.style.overflowY = "hidden";
 
-	            localStorage.setItem('test', 'test1');
+	            localStorage.setItem('name', this.parentElement.querySelector('.product-card__name').innerHTML);
 
-	            document.querySelector('.modal__content').innerHTML = localStorage.getItem('test');
+	            document.querySelector('.modal__content').innerHTML = localStorage.getItem('name');
             }, false);
         }
 
@@ -289,6 +289,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 modal.style.display = "none";
                 body.style.overflowY = ""
             }
+        });
+
+        document.querySelector('.js-filters-wrapper__button--basket').addEventListener('click', function() {
+	        modal.style.display = "block";
+	        body.style.overflowY = "hidden";
         });
 
     }, 0);
