@@ -1,7 +1,7 @@
 {
   "0": {
     "product_id": 1234,
-    "product_name": "My product name 1",
+    "product_name": "Product name 1",
     "shop_product_price": 1450,
     "fabricator": {
       "name": "no data provided",
@@ -11,7 +11,7 @@
   },
   "1": {
     "product_id": "0000",
-    "product_name": "My product name 2",
+    "product_name": "Product name 2",
     "shop_product_price": 1550,
     "fabricator": {
       "name": "no data provided",
@@ -21,7 +21,7 @@
   },
   "2": {
     "product_id": 8967,
-    "product_name": "My product name 3",
+    "product_name": "Product name 3",
     "shop_product_price": 1100,
     "fabricator": {
       "name": "LG",
@@ -31,8 +31,68 @@
   },
   "3": {
     "product_id": 8512,
-    "product_name": "My product name 4",
+    "product_name": "Product name 4",
     "shop_product_price": 900,
+    "fabricator": {
+      "name": "Philips",
+      "address": "USA",
+      "rating": 9
+    }
+  },
+  "4": {
+    "product_id": 8553,
+    "product_name": "Product name 5",
+    "shop_product_price": 1900,
+    "fabricator": {
+      "name": "LG",
+      "address": "USA",
+      "rating": 10
+    }
+  },
+  "5": {
+    "product_id": 8597,
+    "product_name": "Product name 6",
+    "shop_product_price": 470,
+    "fabricator": {
+      "name": "Philips",
+      "address": "USA",
+      "rating": 9
+    }
+  },
+  "6": {
+    "product_id": 8521,
+    "product_name": "Product name 7",
+    "shop_product_price": 870,
+    "fabricator": {
+      "name": "LG",
+      "address": "USA",
+      "rating": 10
+    }
+  },
+  "7": {
+    "product_id": 8564,
+    "product_name": "Product name 8",
+    "shop_product_price": 260,
+    "fabricator": {
+      "name": "Philips",
+      "address": "USA",
+      "rating": 9
+    }
+  },
+  "8": {
+    "product_id": 8573,
+    "product_name": "Product name 9",
+    "shop_product_price": 2500,
+    "fabricator": {
+      "name": "LG",
+      "address": "USA",
+      "rating": 10
+    }
+  },
+  "9": {
+    "product_id": 8537,
+    "product_name": "Product name 10",
+    "shop_product_price": 2900,
     "fabricator": {
       "name": "Philips",
       "address": "USA",

@@ -11,27 +11,66 @@
 
         <div class="product-list"></div>
 
-        <div class="product-form product-form--find">
-            <label class="product-form__label" for="find-object">Find in products</label>
-            <input class="product-form__input-text" placeholder="Input product price" type="text" name="find-object" id="find-object">
-            <input class="product-form__button js-product-form__button--find" type="button" value="Find">
+        <div class="filters-wrapper">
+
+            <div class="filters-wrapper__buttons">
+
+                <button class="filters-wrapper__button filters-wrapper__button--filters js-filters-wrapper__button--filters" type="button">Filters</button>
+
+                <button class="filters-wrapper__button filters-wrapper__button--basket js-filters-wrapper__button--basket" type="button">Basket</button>
+
+            </div>
+
+            <div data-state="hidden" class="filters-wrapper__filter-list">
+
+                <div class="product-form product-form--find">
+                    <label class="product-form__label" for="find-object">Find in products</label>
+                    <input class="product-form__input-text" placeholder="Input product price" type="text" name="find-object" id="find-object">
+                    <input class="product-form__button js-product-form__button--find" type="button" value="Find">
+                </div>
+
+                <div class="product-form product-form--filter">
+                    <label class="product-form__label" for="filter-object">Filter products by price</label>
+                    <input class="product-form__input-text" placeholder="Input product price" type="text" name="filter-object" id="filter-object">
+                    <input class="product-form__button js-product-form__button--filter" type="button" value="Filter">
+                </div>
+
+                <div class="product-form product-form--sort">
+                    <label class="product-form__label">Sort products by ID</label>
+                    <input class="product-form__button js-product-form__button--sort" type="button" value="Sort">
+                </div>
+
+                <div class="product-form product-form--sort">
+                    <label class="product-form__label" for="filter-object">Refresh card list</label>
+                    <input class="product-form__button js-product-form__button--refresh" type="button" value="Refresh">
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="product-form product-form--filter">
-            <label class="product-form__label" for="filter-object">Filter products by price</label>
-            <input class="product-form__input-text" placeholder="Input product price" type="text" name="filter-object" id="filter-object">
-            <input class="product-form__button js-product-form__button--filter" type="button" value="Filter">
-        </div>
+        <!-- modal -->
+        <div id="basket-modal" class="modal">
 
-        <div class="product-form product-form--sort">
-            <label class="product-form__label">Sort products by ID</label>
-            <input class="product-form__button js-product-form__button--sort" type="button" value="Sort">
-        </div>
+            <!-- modal content -->
+            <div class="modal__content">
+                <a class="modal__btn-close" href="javascript:">&times;</a>
+                <p>Some text in the Modal..</p>
+                <p>Some text in the Modal..</p>
+                <p>Some text in the Modal..</p>
+                <p>Some text in the Modal..</p>
+                <p>Some text in the Modal..</p>
+                <p>Some text in the Modal..</p>
+                <p>Some text in the Modal..</p>
+                <p>Some text in the Modal..</p>
+                <p>Some text in the Modal..</p>
+                <p>Some text in the Modal..</p>
+                <p>Some text in the Modal..</p>
+            </div>
+            <!-- /modal content -->
 
-        <div class="product-form product-form--sort">
-            <label class="product-form__label" for="filter-object">Refresh card list</label>
-            <input class="product-form__button js-product-form__button--refresh" type="button" value="Refresh">
         </div>
+        <!-- /modal -->
 
         <script src="js/main.js"></script>
 

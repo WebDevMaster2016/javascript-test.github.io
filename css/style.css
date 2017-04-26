@@ -256,6 +256,8 @@ textarea {
 
 .product-list {
     display: flex;
+    flex-wrap: wrap;
+    padding-top: 40px;
 }
 
 .product-card {
@@ -264,7 +266,7 @@ textarea {
     border-radius: 5px;
     box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, .25);
     text-align: center;
-    margin: 20px;
+    margin: 20px 20px 0 20px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -293,7 +295,7 @@ textarea {
 
 .product-form {
     display: flex;
-    margin: 0 20px 20px 20px;
+    margin: 0 0 20px 0;
     width: 500px;
 }
 
@@ -345,4 +347,146 @@ input[type="text"].product-form__input-text {
 
 /*---=== /product-form ===---*/
 
+/*---=== filters drop down ===---*/
+
+.filters-wrapper {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.filters-wrapper__button {
+    min-width: 80px;
+    height: 30px;
+    text-align: center;
+}
+
+.filters-wrapper__button--filters,
+.filters-wrapper__button--basket {
+    position: relative;
+    min-width: 100px;
+    padding-left: 20px;
+}
+
+.filters-wrapper__button--basket {
+    padding-left: 25px;
+}
+
+.filters-wrapper__button--filters:before,
+.filters-wrapper__button--basket:before {
+    content: ' ';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 50%;
+    left: 10px;
+    background-image: url("../images/svg/filter.svg");
+    background-repeat: no-repeat;
+    background-position: left center;
+    transform: translate(0, -50%);
+}
+
+.filters-wrapper__button--basket:before {
+    width: 18px;
+    height: 18px;
+    background-image: url("../images/svg/shopping_cart.svg");
+}
+
+.filters-wrapper__filter-list {
+    background: #efefef;
+    box-shadow: 0 3px 10px 0 rgba(50, 50, 50, 0.75);
+    margin-top: 10px;
+    opacity: 0;
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+    will-change: max-height, opacity, padding;
+    transition: max-height .225s ease,
+                opacity .225s ease,
+                padding .225s ease;
+}
+
+.filters-wrapper__filter-list[data-state="visible"] {
+    padding: 20px 20px 0 20px;
+    opacity: 1;
+    max-height: 310px;
+}
+
+/*---=== /filters drop down ===---*/
+
+/*---=== basket ===---*/
+
+.filters-wrapper__button--basket {
+
+}
+
+/*---=== /basket ===---*/
+
+.buy-button {
+    margin-top: 20px;
+    height: 40px;
+}
+
 /*---=== /main style sheet ===---*/
+
+/*---=== modal bg ===---*/
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    padding-top: 5%;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal__content {
+    position: relative;
+    background-color: #fefefe;
+    width: 800px;
+    margin: 0 auto;
+    padding: 15px;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),
+                0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: .225s
+}
+
+.modal__btn-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal__btn-close:hover,
+.modal__btn-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*---=== /modal bg ===---*/
+
+/*---=== animation ===---*/
+
+@keyframes animatetop {
+    from {
+        top:-300px;
+        opacity:0
+    }
+    to {
+        top:0;
+        opacity:1
+    }
+}
+
+/*---=== /animation ===---*/
