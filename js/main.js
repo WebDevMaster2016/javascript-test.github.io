@@ -1,3 +1,9 @@
+// console.log(localStorage);
+
+// define global short alias for range of document methods
+var qS = document.querySelector.bind(document);
+var qSA = document.querySelectorAll.bind(document);
+
 const messArr = [
     {
         find_error_text: 'We are sorry, but according to the query you entered, there was no data to found!!!',
@@ -6,7 +12,7 @@ const messArr = [
 ];
 
 function clearArray() {
-    document.querySelector('.product-list').innerHTML = "";
+    qS('.product-list').innerHTML = "";
 }
 
 function insertAfter(referenceNode, newNode) {
@@ -14,7 +20,7 @@ function insertAfter(referenceNode, newNode) {
 }
 
 function printError(selector, mess) {
-    const elem = document.querySelector(selector);
+    const elem = qS(selector);
     const elemToInsert = document.createElement("p");
 
     elemToInsert.className = 'wrong-search-result';
@@ -43,7 +49,7 @@ function addListenerMulti(element, eventNames, listener) {
 	}
 }
 
-var Product = function(product_id, product_name, shop_product_price, fabricator) {
+/*var Product = function(product_id, product_name, shop_product_price, fabricator) {
 
     if(!fabricator) {
         fabricator = {
@@ -82,7 +88,7 @@ var Manufacturer = function(name, address, rating) {
     this.name = name;
     this.address = address;
     this.rating = rating;
-};
+};*/
 
 /*var objectsArray = [];
 
@@ -110,20 +116,188 @@ var productsListJSON = JSON.stringify(productsList);
 console.log(productsListJSON);*/
 
 Array.prototype.upDate = function() {
-    return this.map(function(value) {
+	// var getModalDataObj = Object.assign({}, cards);
+	// console.log(getModalDataObj);
+	// var getModalData = JSON.parse(localStorage.getItem("cards"));
+    // var getModalDataObj = Object.assign({}, cards);
+    // console.log(getModalData);
+    // console.log(getModalData[0].cardID);
+
+    var teastListNode = this.map(function(value) {
+        /*if(getModalData !== null) {
+	        for(let item of getModalData) {
+        	// console.log(value);
+        	// console.log(item.cardID)
+	        // console.log('001');
+	        // console.log('on start product_id -', value.product_id);
+	        // console.log('on local cardID -', item.cardID);
+	        // console.log('--------------');
+
+	            // console.log(getModalData[i].cardID);
+
+	            if(item.cardID == value.product_id) {
+	                // console.log(value.product_id);
+	                // console.log('123');
+	                var buyText = 'Added to cart'
+	            } else {
+		            // console.log('456');
+	                buyText = 'Buy'
+	            }
+	        }
+        } else {
+            buyText = 'Buy';
+        }*/
+
         var productCard = document.createElement("div");
         productCard.className = "product-card";
-        productCard.innerHTML = `<div class="product-card__id">Product ID: ${value.product_id}</div>
+        productCard.innerHTML = `<div class="product-card__id">Product ID: <span>${value.product_id}</span></div>
             <h1 class="product-card__name">${value.product_name}</h1>
-            <p class="product-card__price">Price: ${value.shop_product_price}</p>
-            <p class="product-card__fabricator-name">Fabricator name - ${value.fabricator.name} </p>
-            <p class="product-card__fabricator-address">Fabricator address - ${value.fabricator.address}</p>
-            <p class="product-card__fabricator-rating">Fabricator rating - ${value.fabricator.rating}</p>
-            <button type="button" class="buy-button js-buy-button">Buy</button>`;
-        document.querySelector('.product-list').appendChild(productCard);
+            <p class="product-card__price">Price: <span>${value.shop_product_price}</span></p>
+            <p class="product-card__fabricator-name">Fabricator name - <span>${value.fabricator.name}</span></p>
+            <p class="product-card__fabricator-address">Fabricator address - <span>${value.fabricator.address}</span></p>
+            <p class="product-card__fabricator-rating">Fabricator rating - <span>${value.fabricator.rating}</span></p>
+            <button type="button" class="card-button js-buy-button">Buy</button>`;
+        qS('.product-list').appendChild(productCard);
         return productCard;
     });
-    // return teastListNode;
+
+    var btn = qSA('.js-buy-button');
+    var modal = qS("#basket-modal");
+    var modalButtonClose = qS(".modal__btn-close");
+    var body = qS('body');
+    var html = qS('html');
+
+    // listen click on "Buy" button
+    for(var i = 0; i < btn.length; i++) {
+
+        btn[i].addEventListener('click', function(){
+
+            var cards;
+            if(!localStorage.cards) {
+            	cards = [];
+            }
+            else {
+                cards = JSON.parse(localStorage.cards);
+            }
+
+            var currentCard = {
+                userNumber : cards.length,
+                cardID: this.parentNode.querySelector('.product-card__id span').innerHTML,
+                name: this.parentElement.querySelector('.product-card__name').innerHTML,
+                price: this.parentElement.querySelector('.product-card__price span').innerHTML,
+                fabricatorName: this.parentElement.querySelector('.product-card__fabricator-name span').innerHTML,
+                fabricatorAddress: this.parentElement.querySelector('.product-card__fabricator-address span').innerHTML,
+                fabricatorRating: this.parentElement.querySelector('.product-card__fabricator-rating span').innerHTML,
+                buttonText: "Added to cart"
+            };
+
+            cards.push(currentCard);
+
+            try {
+                localStorage.cards = JSON.stringify(cards);
+                console.log(cards, "The data was saved.");
+	            modal.style.display = "block";
+	            Object.assign(html.style, {
+		            overflowY: "hidden",
+		            marginRight: window.innerWidth - document.body.clientWidth + 'px'
+	            });
+	            for(let item of cards) {
+		            qS('.modal__content-body').innerHTML += `<div class="product-card">
+						<div class="product-card__id">Product ID: <span>${item.cardID}</span></div>
+            			<h1 class="product-card__name">${item.name}</h1>
+                        <p class="product-card__price">Price: <span>${item.price}</span></p>
+                        <p class="product-card__fabricator-name">Fabricator name - <span>${item.fabricatorName}</span></p>
+                        <p class="product-card__fabricator-address">Fabricator address - <span>${item.fabricatorAddress}</span></p>
+                        <p class="product-card__fabricator-rating">Fabricator rating - <span>${item.fabricatorRating}</span></p>
+                        <div class="card-button-remove-wrapper">
+                        	<button type="button" class="card-button js-remove-button">Remove</button>
+                        </div>
+					</div>`;
+	            }
+
+                return true;
+            } catch (e) {
+                if (e == QUOTA_EXCEEDED_ERR) {
+                    alert('Quota exceeded!');
+                }
+            }
+
+            // localStorage.setItem("currentCurd", JSON.stringify(currentCurd));
+            // var getModalData = JSON.parse(localStorage.getItem("currentCurd"));
+
+            // modal.style.display = "block";
+            /*Object.assign(html.style, {
+                overflowY: "hidden",
+                marginRight: window.innerWidth - document.body.clientWidth + 'px'
+            });*/
+
+            // qS('.modal__content-body').innerHTML = getModalData.name;
+            // this.innerHTML = getModalData.buttonText;
+
+        }, false);
+    }
+
+    // When the user clicks on (x), close the modal
+    modalButtonClose.addEventListener('click', function() {
+        modal.style.display = "none";
+        Object.assign(html.style, {
+            overflowY: "",
+            marginRight: ""
+        });
+    });
+
+    // remove product card from basket
+	document.addEventListener("click", function (e) {
+		var target = e.target;
+
+		while (target && target.parentNode !== document) {
+			target = target.parentNode;
+			if (!target) { return; } // If element doesn't exist
+
+			if (target.classList.contains('card-button-remove-wrapper')){
+				e.target.parentNode.parentNode.style.display = "none";
+			}
+		}
+	});
+
+    /*qS('.js-remove-button').addEventListener('click', function() {
+	   console.log(this);
+    });*/
+
+    // When the user clicks anywhere outside of the modal or press "Esc" button, close modal
+    addListenerMulti(window, 'click keyup', function(event) {
+        if ((event.target === modal) || (event.keyCode === 27)) {
+            modal.style.display = "none";
+            Object.assign(html.style, {
+                overflowY: "",
+                marginRight: ""
+            });
+	        qS('.modal__content-body').innerHTML = "";
+        }
+    });
+
+    // show basket
+    function showBasketModal() {
+        qS('.js-filters-wrapper__button--basket').addEventListener('click', function() {
+            modal.style.display = "block";
+            Object.assign(html.style, {
+                overflowY: "hidden",
+                marginRight: window.innerWidth - document.body.clientWidth + 'px'
+            });
+
+            if(localStorage.length > 0) {
+                /*var getModalData = JSON.parse(localStorage.getItem("modalData"));
+                qS('.modal__content-body').innerHTML = getModalData.name;*/
+
+            } else {
+                qS('.modal__content-body').innerHTML = '<div class="modal__empty">Your Shopping Cart is empty</div>'
+            }
+        });
+    }
+
+    showBasketModal();
+
+    return teastListNode;
 };
 
 var objectsArray = [];
@@ -144,7 +318,7 @@ fetchJSONFile('js/json/products.json', function(data){
 document.addEventListener("DOMContentLoaded", function(event) {
 
     // find
-    document.querySelector('.js-product-form__button--find').addEventListener('click', function() {
+    qS('.js-product-form__button--find').addEventListener('click', function() {
 
         function findPrice(value) {
             return value.shop_product_price === parseInt(document.getElementsByName('find-object')[0].value)
@@ -162,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }, false);
 
     // filter
-    document.querySelector('.js-product-form__button--filter').addEventListener('click', function() {
+    qS('.js-product-form__button--filter').addEventListener('click', function() {
 
         function filterPrice(value) {
             return value.shop_product_price > parseInt(document.getElementsByName('filter-object')[0].value)
@@ -204,38 +378,40 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     // sort
-    document.querySelector('.js-product-form__button--sort').addEventListener('click', function() {
+    qS('.js-product-form__button--sort').addEventListener('click', function() {
 
         funcArr.reverse()[0]();
 
     }, false);
 
     // refresh
-    document.querySelector('.js-product-form__button--refresh').addEventListener('click', function () {
+    qS('.js-product-form__button--refresh').addEventListener('click', function () {
 
         clearArray();
         objectsArray.upDate();
     });
 
     // listener for any clicks on the document.
-    document.addEventListener("click", function(e) {
+    addListenerMulti(window, "click keyup", function(e) {
 
-        var filterListWrapper = document.querySelector('.filters-wrapper__filter-list');
+        var filterListWrapper = qS('.filters-wrapper__filter-list');
         var filterListWrapperVisible = filterListWrapper.getAttribute('data-state') === 'visible';
         var filterListWrapperRect = filterListWrapper.getBoundingClientRect();
 
         if (filterListWrapperVisible && e.target !== filterListWrapper && ((e.clientX < filterListWrapperRect.left) || (e.clientX > filterListWrapperRect.right)) || ((e.clientY < filterListWrapperRect.top) || (e.clientY > filterListWrapperRect.bottom))) {
             filterListWrapper.setAttribute('data-state', 'hidden');
+        } else if(e.keyCode === 27) {
+	        filterListWrapper.setAttribute('data-state', 'hidden');
         }
 
     }, false);
 
     // listener for click on "filters" button
-    document.querySelector('.js-filters-wrapper__button--filters').addEventListener('click', function (e) {
+    qS('.js-filters-wrapper__button--filters').addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
 
-        var filterListWrapper = document.querySelector('.filters-wrapper__filter-list');
+        var filterListWrapper = qS('.filters-wrapper__filter-list');
 
         if(filterListWrapper.getAttribute('data-state') === 'hidden') {
            filterListWrapper.setAttribute('data-state', 'visible');
@@ -245,57 +421,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }, false);
 
     // set offset for filter list
-    var filtersWrapperRight = document.querySelector('.filters-wrapper__button--filters').getBoundingClientRect().right;
-    var windowWidth = window.innerWidth;
-
-    document.querySelector('.filters-wrapper__filter-list').style.marginRight = window.innerWidth - document.querySelector('.filters-wrapper__button--filters').getBoundingClientRect().right - 10 + 'px';
-
-    setTimeout(function () {
-
-        // Get the modal
-        var modal = document.querySelector("#basket-modal");
-
-        // Get the button that opens the modal
-        var btn = document.querySelectorAll('.js-buy-button');
-        // console.log(btn);
-
-        // Get the <span> element that closes the modal
-        var modalButtonClose = document.querySelector(".modal__btn-close");
-
-        var body = document.querySelector('body');
-
-        // When the user clicks on the button, open the modal
-        for(var i = 0; i < btn.length; i++) {
-
-            btn[i].addEventListener('click', function(){
-                modal.style.display = "block";
-                body.style.overflowY = "hidden";
-
-	            localStorage.setItem('name', this.parentElement.querySelector('.product-card__name').innerHTML);
-
-	            document.querySelector('.modal__content').innerHTML = localStorage.getItem('name');
-            }, false);
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        modalButtonClose.addEventListener('click', function() {
-            modal.style.display = "none";
-            body.style.overflowY = "auto"
-        });
-
-        // When the user clicks anywhere outside of the modal, close it
-        addListenerMulti(window, 'click keyup', function(event) {
-            if ((event.target === modal) || (event.keyCode === 27)) {
-                modal.style.display = "none";
-                body.style.overflowY = ""
-            }
-        });
-
-        document.querySelector('.js-filters-wrapper__button--basket').addEventListener('click', function() {
-	        modal.style.display = "block";
-	        body.style.overflowY = "hidden";
-        });
-
-    }, 0);
+    qS('.filters-wrapper__filter-list').style.right = window.innerWidth - qS('.filters-wrapper__button--filters').getBoundingClientRect().right + 'px';
 
 });

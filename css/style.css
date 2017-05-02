@@ -21,7 +21,6 @@ body {
 
 html, body {
     height: 100%;
-    width: 100%;
 }
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, menu, nav, output, ruby, section, summary, time, mark, audio, video {
@@ -255,9 +254,9 @@ textarea {
 /*---=== product-card ===---*/
 
 .product-list {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 40px;
+    margin: 0 auto 20px auto;
+    max-width: 1220px;
+    text-align: center;
 }
 
 .product-card {
@@ -266,10 +265,10 @@ textarea {
     border-radius: 5px;
     box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, .25);
     text-align: center;
-    margin: 20px 20px 0 20px;
     padding: 10px;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
+    margin: 20px 10px 0 10px;
 }
 
 .product-card__id {
@@ -350,12 +349,11 @@ input[type="text"].product-form__input-text {
 /*---=== filters drop down ===---*/
 
 .filters-wrapper {
-    position: fixed;
-    top: 10px;
-    right: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    padding: 20px 10px 0 0;
+    position: relative;
 }
 
 .filters-wrapper__button {
@@ -402,6 +400,8 @@ input[type="text"].product-form__input-text {
     opacity: 0;
     max-height: 0;
     padding: 0;
+    position: absolute;
+    top: 60px;
     overflow: hidden;
     will-change: max-height, opacity, padding;
     transition: max-height .225s ease,
@@ -425,7 +425,7 @@ input[type="text"].product-form__input-text {
 
 /*---=== /basket ===---*/
 
-.buy-button {
+.card-button {
     margin-top: 20px;
     height: 40px;
 }
@@ -452,7 +452,7 @@ input[type="text"].product-form__input-text {
     background-color: #fefefe;
     width: 800px;
     margin: 0 auto;
-    padding: 15px;
+    padding: 45px 15px;
     border: 1px solid #888;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),
                 0 6px 20px 0 rgba(0,0,0,0.19);
@@ -462,9 +462,14 @@ input[type="text"].product-form__input-text {
 
 .modal__btn-close {
     color: #aaa;
-    float: right;
     font-size: 28px;
     font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 15px;
+    height: 15px;
+    background: url("../images/svg/close.svg") no-repeat center;
 }
 
 .modal__btn-close:hover,
@@ -472,6 +477,18 @@ input[type="text"].product-form__input-text {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.modal__content-body {
+	text-align: center;
+}
+
+.modal__empty {
+    min-height: 150px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /*---=== /modal bg ===---*/
