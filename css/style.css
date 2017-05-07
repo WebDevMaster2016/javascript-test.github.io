@@ -370,7 +370,7 @@ input[type="text"].product-form__input-text {
 }
 
 .filters-wrapper__button--basket {
-    padding-left: 25px;
+    padding-left: 38px;
 }
 
 .filters-wrapper__button--filters:before,
@@ -417,20 +417,11 @@ input[type="text"].product-form__input-text {
 
 /*---=== /filters drop down ===---*/
 
-/*---=== basket ===---*/
-
-.filters-wrapper__button--basket {
-
-}
-
-/*---=== /basket ===---*/
-
 .card-button {
     margin-top: 20px;
     height: 40px;
+    width: 100%;
 }
-
-/*---=== /main style sheet ===---*/
 
 /*---=== modal bg ===---*/
 
@@ -447,6 +438,10 @@ input[type="text"].product-form__input-text {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+/*---=== /modal bg ===---*/
+
+/*---=== modal content ===---*/
+
 .modal__content {
     position: relative;
     background-color: #fefefe;
@@ -455,7 +450,7 @@ input[type="text"].product-form__input-text {
     padding: 45px 15px;
     border: 1px solid #888;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),
-                0 6px 20px 0 rgba(0,0,0,0.19);
+    0 6px 20px 0 rgba(0,0,0,0.19);
     animation-name: animatetop;
     animation-duration: .225s
 }
@@ -479,8 +474,17 @@ input[type="text"].product-form__input-text {
     cursor: pointer;
 }
 
-.modal__content-body {
+.modal__content-header {
 	text-align: center;
+	margin-bottom: 20px;
+}
+
+.modal__content-headline {
+	font-size: 25px;
+}
+
+.modal__content-body {
+    text-align: center;
 }
 
 .modal__empty {
@@ -491,7 +495,7 @@ input[type="text"].product-form__input-text {
     justify-content: center;
 }
 
-/*---=== /modal bg ===---*/
+/*---=== /modal content ===---*/
 
 /*---=== animation ===---*/
 
@@ -507,3 +511,5 @@ input[type="text"].product-form__input-text {
 }
 
 /*---=== /animation ===---*/
+
+/*---=== /main style sheet ===---*/

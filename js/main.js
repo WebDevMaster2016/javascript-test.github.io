@@ -115,25 +115,22 @@ var productsListJSON = JSON.stringify(productsList);
 
 console.log(productsListJSON);*/
 
+Array.prototype.removeAt = function(id) {
+    for (var item in this) {
+        if (this[item].cardID == id) {
+            this.splice(item, 1);
+            return true;
+        }
+    }
+    return false;
+};
+
 Array.prototype.upDate = function() {
-	// var getModalDataObj = Object.assign({}, cards);
-	// console.log(getModalDataObj);
 	// var getModalData = JSON.parse(localStorage.getItem("cards"));
-    // var getModalDataObj = Object.assign({}, cards);
-    // console.log(getModalData);
-    // console.log(getModalData[0].cardID);
 
     var teastListNode = this.map(function(value) {
         /*if(getModalData !== null) {
 	        for(let item of getModalData) {
-        	// console.log(value);
-        	// console.log(item.cardID)
-	        // console.log('001');
-	        // console.log('on start product_id -', value.product_id);
-	        // console.log('on local cardID -', item.cardID);
-	        // console.log('--------------');
-
-	            // console.log(getModalData[i].cardID);
 
 	            if(item.cardID == value.product_id) {
 	                // console.log(value.product_id);
@@ -172,6 +169,8 @@ Array.prototype.upDate = function() {
 
         btn[i].addEventListener('click', function(){
 
+
+
             var cards;
             if(!localStorage.cards) {
             	cards = [];
@@ -201,8 +200,10 @@ Array.prototype.upDate = function() {
 		            overflowY: "hidden",
 		            marginRight: window.innerWidth - document.body.clientWidth + 'px'
 	            });
+	            qS('.js-basket-items-amount').innerHTML = cards.length;
+
 	            for(let item of cards) {
-		            qS('.modal__content-body').innerHTML += `<div class="product-card">
+		            qS('.modal__content-body').innerHTML += `<div data-basket-state="in-basket" class="product-card">
 						<div class="product-card__id">Product ID: <span>${item.cardID}</span></div>
             			<h1 class="product-card__name">${item.name}</h1>
                         <p class="product-card__price">Price: <span>${item.price}</span></p>
@@ -222,18 +223,6 @@ Array.prototype.upDate = function() {
                 }
             }
 
-            // localStorage.setItem("currentCurd", JSON.stringify(currentCurd));
-            // var getModalData = JSON.parse(localStorage.getItem("currentCurd"));
-
-            // modal.style.display = "block";
-            /*Object.assign(html.style, {
-                overflowY: "hidden",
-                marginRight: window.innerWidth - document.body.clientWidth + 'px'
-            });*/
-
-            // qS('.modal__content-body').innerHTML = getModalData.name;
-            // this.innerHTML = getModalData.buttonText;
-
         }, false);
     }
 
@@ -244,6 +233,7 @@ Array.prototype.upDate = function() {
             overflowY: "",
             marginRight: ""
         });
+	    qS('.modal__content-body').innerHTML = "";
     });
 
     // remove product card from basket
@@ -256,13 +246,23 @@ Array.prototype.upDate = function() {
 
 			if (target.classList.contains('card-button-remove-wrapper')){
 				e.target.parentNode.parentNode.style.display = "none";
+
+                var basketCardID = e.target.parentNode.parentNode.querySelector('.product-card__id span').innerHTML;
+
+                var localStorageObj = JSON.parse(localStorage.cards);
+                localStorageObj.removeAt(basketCardID);
+                localStorage.cards = JSON.stringify(localStorageObj);
+
+				qS('.js-basket-items-amount').innerHTML = localStorageObj.length;
+                console.log(localStorage.cards);
+
+                if(localStorageObj.length == 0) {
+                    qS('.modal__content-body').innerHTML = '<div class="modal__empty">Your Shopping Cart is empty</div>';
+                }
+
 			}
 		}
 	});
-
-    /*qS('.js-remove-button').addEventListener('click', function() {
-	   console.log(this);
-    });*/
 
     // When the user clicks anywhere outside of the modal or press "Esc" button, close modal
     addListenerMulti(window, 'click keyup', function(event) {
@@ -285,9 +285,34 @@ Array.prototype.upDate = function() {
                 marginRight: window.innerWidth - document.body.clientWidth + 'px'
             });
 
-            if(localStorage.length > 0) {
-                /*var getModalData = JSON.parse(localStorage.getItem("modalData"));
-                qS('.modal__content-body').innerHTML = getModalData.name;*/
+            // var localStorageBasketObj = JSON.parse(localStorage.cards);
+
+
+            var localStorageBasketObj;
+            if(!localStorage.cards) {
+                localStorageBasketObj = [];
+            }
+            else {
+                localStorageBasketObj = JSON.parse(localStorage.cards);
+            }
+
+            // console.log(localStorageBasketObj);
+
+            if(localStorageBasketObj.length > 0 && localStorageBasketObj.length != 0) {
+
+	            for(let item of localStorageBasketObj) {
+		            qS('.modal__content-body').innerHTML += `<div class="product-card">
+						<div class="product-card__id">Product ID: <span>${item.cardID}</span></div>
+            			<h1 class="product-card__name">${item.name}</h1>
+                        <p class="product-card__price">Price: <span>${item.price}</span></p>
+                        <p class="product-card__fabricator-name">Fabricator name - <span>${item.fabricatorName}</span></p>
+                        <p class="product-card__fabricator-address">Fabricator address - <span>${item.fabricatorAddress}</span></p>
+                        <p class="product-card__fabricator-rating">Fabricator rating - <span>${item.fabricatorRating}</span></p>
+                        <div class="card-button-remove-wrapper">
+                        	<button type="button" class="card-button js-remove-button">Remove</button>
+                        </div>
+					</div>`;
+	            }
 
             } else {
                 qS('.modal__content-body').innerHTML = '<div class="modal__empty">Your Shopping Cart is empty</div>'
@@ -316,6 +341,23 @@ fetchJSONFile('js/json/products.json', function(data){
 });
 
 document.addEventListener("DOMContentLoaded", function(event) {
+
+	// set amount of products in basket
+	var cardsInBasket;
+	if(!localStorage.cards) {
+		cardsInBasket = [];
+	}
+	else {
+		cardsInBasket = JSON.parse(localStorage.cards);
+	}
+
+	if(cardsInBasket.length === 0) {
+		qS('.js-basket-items-amount').innerHTML = '0';
+	} else {
+		qS('.js-basket-items-amount').innerHTML = cardsInBasket.length;
+	}
+
+	console.log(cardsInBasket.length);
 
     // find
     qS('.js-product-form__button--find').addEventListener('click', function() {
